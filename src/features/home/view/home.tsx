@@ -26,7 +26,7 @@ const recipes: Recipe[] = [
 
 const renderIngredient = (item: string) => {
     return (
-        <TouchableHighlight underlayColor={Colors.light_grey} onPress={() => { }} style={{ marginLeft: 20, borderRadius: 20 }}>
+        <TouchableHighlight underlayColor={Colors.light_grey} onPress={() => { }} style={{ paddingHorizontal: 10, borderRadius: 20 }}>
             <View>
                 <MyImage style={{ marginBottom: 10 }} height={100} width={80} borderRadius={10} />
                 <StyledText style={{ textAlign: 'center' }} fontSize={14} fontWeight='Medium'>{item}</StyledText>
@@ -55,10 +55,11 @@ export default function Home() {
                 </StyledText>
                 <FlatList data={data} keyExtractor={item => item}
                     renderItem={(data) => renderIngredient(data.item)}
-                    horizontal style={{ marginTop: 20 }} showsHorizontalScrollIndicator={false}
+                    horizontal style={{ marginVertical: 10 }} 
+                    showsHorizontalScrollIndicator={false}
                 />
             </View>
-            <View style={{ marginVertical: 20,flex:1}}>
+            <View style={{ marginVertical: 10,flex:1}}>
                 <StyledText style={{ marginHorizontal: 10,marginBottom:10 }} fontWeight='Bold' fontSize={20}>
                     Popular Recipes
                 </StyledText>

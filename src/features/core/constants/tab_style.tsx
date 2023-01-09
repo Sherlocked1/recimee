@@ -27,8 +27,7 @@ export const TabOptions: ((props: {
                 default:
                     iconName = 'home'
             }
-
-            // You can return any component that you like here!
+            
             return (
                 <View style={{ alignItems: 'center', justifyContent: 'center', top: Platform.OS == 'ios' ? 10 : 0 }}>
                     <Ionicons
