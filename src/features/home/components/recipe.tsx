@@ -4,6 +4,7 @@ import StyledText from "../../core/components/MyText"
 import { Colors } from "../../core/constants/constants"
 import { AbstractRecipe, Recipe } from "../../core/models/recipe"
 import { Rating, AirbnbRating } from 'react-native-ratings';
+import { getTimeStringOf } from "../../core/utils/utils"
 
 
 type RecipeViewProps = {
@@ -13,14 +14,7 @@ type RecipeViewProps = {
 
 const RecipeView = (props: RecipeViewProps) => {
     const { width } = useWindowDimensions();
-
-    const getTimeStringOf = (minutes: number): string => {
-        var hours = Math.floor(minutes / 60);
-        var mins = minutes % 60;
-
-        return hours + ":" + mins;
-    }
-
+    
     return (
         <View style={{ width: width * 0.4, marginHorizontal: width * 0.05 }}>
             <View style={{ alignItems: 'center' }}>
@@ -32,11 +26,11 @@ const RecipeView = (props: RecipeViewProps) => {
                         {props.item.title}
                     </StyledText>
 
-                    <AirbnbRating 
-                    showRating={false}
-                    size={20}
-                    defaultRating={5}
-                    isDisabled
+                    <AirbnbRating
+                        showRating={false}
+                        size={20}
+                        defaultRating={5}
+                        isDisabled
                     />
 
                     <StyledText fontSize={14} fontWeight='ExtraLight'
@@ -61,9 +55,9 @@ const styles = StyleSheet.create({
         backgroundColor: Colors.light_grey
     },
     image: {
-        position: 'absolute', zIndex: 1, top: 0 ,
-        borderColor:Colors.secondary,
-        borderWidth:0.1,
+        position: 'absolute', zIndex: 1, top: 0,
+        borderColor: Colors.secondary,
+        borderWidth: 0.1,
     }
 })
 

@@ -9,7 +9,7 @@ export const AbstractRecipeView = (props: AbstractRecipeViewProps) => {
     const { width } = useWindowDimensions();
 
     const Container = styled.TouchableOpacity`
-        width: ${width * 0.4};
+        width: ${width * 0.4}px;
         padding: 4px;
         justify-content: center;
         align-items: center;

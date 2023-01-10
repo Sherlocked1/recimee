@@ -1,13 +1,13 @@
 import Ionicons from '@expo/vector-icons/Ionicons';
 import type { RouteProp } from '@react-navigation/core'
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
-import { RootStackParams } from '../../../main';
+import { RootStackParams, RootTabsParams } from '../../../main';
 import { Colors } from './constants';
 import { Platform, StyleSheet, Text, View } from "react-native";
 import StyledText from '../components/MyText';
 
 export const TabOptions: ((props: {
-    route: RouteProp<RootStackParams, keyof RootStackParams>;
+    route: RouteProp<RootTabsParams, keyof RootTabsParams>;
     navigation: any;
 }) => BottomTabNavigationOptions) = ({ route }) => {
     return {

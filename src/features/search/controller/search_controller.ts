@@ -1,14 +1,20 @@
 import { useNavigation } from "@react-navigation/native";
-import { useEffect, useState } from "react";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useState } from "react";
 import { RootStackParams } from "../../../main";
-import { Recipe } from "../../core/models/recipe";
+import { AbstractRecipe, Recipe } from "../../core/models/recipe";
 import useSearchViewModel from "../view_models/search_viewmodel";
 
-const useSearchController = () => {
-    
-    const navigation = useNavigation<RootStackParams>()
+type Props = NativeStackNavigationProp<RootStackParams,'Tabs'>
 
-    const {callAPI} = useSearchViewModel();
+const useSearchController = () => {
+
+    const [isLoading,setIsLoading] = useState<boolean>(false);
+    const [recipes,setRecipes] = useState<AbstractRecipe[]>([]);
+
+    const navigation = useNavigation<Props>()
+
+    const {getRecipesForQuery,getRecipesDetailsForId} = useSearchViewModel();
  
     const [searchQuery, setSearchQuery] = useState<string>('');
 
@@ -16,14 +22,20 @@ const useSearchController = () => {
         setSearchQuery(text)
     }
 
-    const onSubmitQuery = () => {
-        callAPI(searchQuery);
+    const onSubmitQuery = async () => {
+        setIsLoading(true);
+        const recipes = await getRecipesForQuery(searchQuery);
+        setIsLoading(false);
+        setRecipes(recipes);
     }
 
 
-    const onItemClick = (item:Recipe) => {
-        console.log(item.title)
-
+    const onItemClick = async (id:number) => {
+        setIsLoading(true);
+        const data = await getRecipesDetailsForId(id);
+        console.log('item data :::: ',data);
+        setIsLoading(false);
+        navigation.navigate('RecipeDetails',{recipe:data});
     }
 
     return {
@@ -31,6 +43,8 @@ const useSearchController = () => {
         onChangeText,
         onSubmitQuery,
         onItemClick,
+        isLoading,
+        recipes,
     }
 }
 
