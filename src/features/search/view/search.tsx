@@ -1,20 +1,26 @@
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { useEffect } from "react";
 import { ActivityIndicator, FlatList, SafeAreaView, View } from "react-native"
 import styled from "styled-components/native";
+import { RootTabsParams } from "../../../main";
 import { MyField } from "../../core/components/MyTextfield";
 import { Colors } from "../../core/constants/constants";
 import { AbstractRecipe, AbstractRecipesDTO, Recipe } from "../../core/models/recipe";
 import { AbstractRecipeView } from "../components/abstract_recipe";
 import useSearchController from "../controller/search_controller";
 
-const SearchView = () => {
+type TabProps = BottomTabScreenProps<RootTabsParams,'Search'>;
+const SearchView = ({navigation,route}:TabProps) => {
 
-    var data: AbstractRecipe[] = []
+    const { recipes, searchQuery, onChangeText, onSubmitQuery, onItemClick, isLoading,searchForQuery } = useSearchController();
 
-    const fdata: AbstractRecipesDTO = require('../../core/data/recipes.json');
-    data = fdata.results;
-    var detailed_recipes: Recipe[] = require('../../core/data/recipes_detailed.json')
-
-    const { recipes, searchQuery, onChangeText, onSubmitQuery, onItemClick, isLoading } = useSearchController();
+    useEffect(()=>{
+        if (route.params?.query) {
+            const query = route.params.query
+            console.log(query);
+            searchForQuery(query!);
+        }
+    },[route])
 
     return (
         <>

@@ -1,24 +1,23 @@
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native"
+import { StyleSheet, TouchableOpacity, useWindowDimensions, View } from "react-native"
 import MyImage from "../../core/components/MyImage"
 import StyledText from "../../core/components/MyText"
 import { Colors } from "../../core/constants/constants"
-import { AbstractRecipe, Recipe } from "../../core/models/recipe"
-import { Rating, AirbnbRating } from 'react-native-ratings';
+import { Recipe } from "../../core/models/recipe"
 import { getTimeStringOf } from "../../core/utils/utils"
 
 
 type RecipeViewProps = {
-    item: AbstractRecipe
+    item: Recipe,
+    onClick:(item:Recipe)=>void
 }
-
 
 const RecipeView = (props: RecipeViewProps) => {
     const { width } = useWindowDimensions();
     
     return (
-        <View style={{ width: width * 0.4, marginHorizontal: width * 0.05 }}>
+        <TouchableOpacity onPress={()=>props.onClick(props.item)} style={{ width: width * 0.4, marginHorizontal: width * 0.05 }}>
             <View style={{ alignItems: 'center' }}>
-                <MyImage style={styles.image} height={80} width={80} isCircle />
+                <MyImage source={{uri:props.item.image}} style={styles.image} height={80} width={80} isCircle />
                 <View style={styles.detailsView}>
                     <StyledText fontSize={16} fontWeight='Medium'
                         style={{ textAlign: 'center' }}
@@ -26,21 +25,14 @@ const RecipeView = (props: RecipeViewProps) => {
                         {props.item.title}
                     </StyledText>
 
-                    <AirbnbRating
-                        showRating={false}
-                        size={20}
-                        defaultRating={5}
-                        isDisabled
-                    />
-
                     <StyledText fontSize={14} fontWeight='ExtraLight'
                         style={{ textAlign: 'center' }}
                     >
-                        {getTimeStringOf(90)}
+                        {getTimeStringOf(props.item.readyInMinutes)}
                     </StyledText>
                 </View>
             </View>
-        </View>
+        </TouchableOpacity>
     )
 }
 

@@ -23,12 +23,15 @@ const useSearchController = () => {
     }
 
     const onSubmitQuery = async () => {
+        searchForQuery(searchQuery);
+    }
+
+    const searchForQuery = async (query:string) => {
         setIsLoading(true);
-        const recipes = await getRecipesForQuery(searchQuery);
+        const recipes = await getRecipesForQuery(query);
         setIsLoading(false);
         setRecipes(recipes);
     }
-
 
     const onItemClick = async (id:number) => {
         setIsLoading(true);
@@ -45,6 +48,7 @@ const useSearchController = () => {
         onItemClick,
         isLoading,
         recipes,
+        searchForQuery
     }
 }
 

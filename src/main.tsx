@@ -38,7 +38,7 @@ const Main = () => {
 
 export type RootTabsParams = {
     Home: undefined,
-    Search: undefined,
+    Search: {query?:string},
     Settings: undefined
 }
 

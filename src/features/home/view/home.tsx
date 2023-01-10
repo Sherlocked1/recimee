@@ -3,36 +3,50 @@ import styled from "styled-components/native";
 import MyImage from "../../core/components/MyImage";
 import StyledText from "../../core/components/MyText";
 import { Colors } from "../../core/constants/constants";
-import { AbstractRecipe, Recipe } from "../../core/models/recipe";
 import RecipeView from "../components/recipe";
 import {
     SafeAreaView,
 } from 'react-native-safe-area-context';
-import Constants from "expo-constants";
 import { Ingredient, IngredientsDTO } from "../../core/models/ingredient";
 
 const ingredients: IngredientsDTO = require('../../core/data/popular_ingredients.json');
 const data: Ingredient[] = ingredients.data;
 
-const recipes: AbstractRecipe[] = [
-    { id: 1, title: 'Chicken meat', image: '', imageType: 'jpg' },
-    { id: 2, title: 'Chicken meat', image: '', imageType: 'jpg' },
-    { id: 3, title: 'Chicken meat', image: '', imageType: 'jpg' },
-    { id: 4, title: 'Chicken meat', image: '', imageType: 'jpg' },
-]
+const recipes:Recipe[] = require('../../core/data/recipes_detailed.json');
+import { Recipe } from "../../core/models/recipe";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { RootStackParams, RootTabsParams } from "../../../main";
+import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
-const renderIngredient = (item: Ingredient) => {
-    return (
-        <TouchableHighlight underlayColor={Colors.light_grey} onPress={() => { }} style={{ paddingHorizontal: 10, borderRadius: 20 }}>
-            <View>
-                <MyImage source={{ uri: item.image_url }} style={{ marginBottom: 10 }} height={100} width={80} borderRadius={10} />
-                <StyledText style={{ textAlign: 'center' }} fontSize={14} fontWeight='Medium'>{item.name}</StyledText>
-            </View>
-        </TouchableHighlight>
-    )
-}
 
-export default function Home() {
+type TabProps = BottomTabScreenProps<RootTabsParams,'Home'>;
+type Props = NativeStackScreenProps<RootStackParams,'Tabs'>;
+export default function Home({navigation,route}:TabProps) {
+
+
+    const nav = useNavigation();
+
+    const onRecipeClicked = (item:Recipe) => {
+        nav.navigate('RecipeDetails',{recipe:item})
+    }
+
+    const onIngredientClicked = (name:string) => {
+        console.log(name);
+        navigation.navigate('Search',{query:name});
+    }
+
+    const renderIngredient = (item: Ingredient) => {
+        return (
+            <TouchableHighlight underlayColor={Colors.light_grey} onPress={() => { onIngredientClicked(item.name)}} style={{ paddingHorizontal: 10, borderRadius: 20 }}>
+                <View>
+                    <MyImage source={{ uri: item.image_url }} style={{ marginBottom: 10 }} height={100} width={80} borderRadius={10} />
+                    <StyledText style={{ textAlign: 'center' }} fontSize={14} fontWeight='Medium'>{item.name}</StyledText>
+                </View>
+            </TouchableHighlight>
+        )
+    }
+
     return (
         <SafeAreaView style={{ flex: 1, paddingBottom: 60 }}>
             <HorizontalStack>
@@ -61,7 +75,7 @@ export default function Home() {
                     Popular Recipes
                 </StyledText>
                 <FlatList style={{ alignSelf: 'center' }} data={recipes} keyExtractor={data => data.id.toString()}
-                    renderItem={data => <RecipeView item={data.item} />} numColumns={2}
+                    renderItem={data => <RecipeView onClick={onRecipeClicked} item={data.item} />} numColumns={2}
                 />
             </View>
         </SafeAreaView>
