@@ -14,18 +14,18 @@ const data: Ingredient[] = ingredients.data;
 
 const recipes:Recipe[] = require('../../core/data/recipes_detailed.json');
 import { Recipe } from "../../core/models/recipe";
-import { useNavigation } from "@react-navigation/native";
+import { NavigationProp, useNavigation } from "@react-navigation/native";
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParams, RootTabsParams } from "../../../main";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 
 
 type TabProps = BottomTabScreenProps<RootTabsParams,'Home'>;
-type Props = NativeStackScreenProps<RootStackParams,'Tabs'>;
+type Props = NavigationProp<RootStackParams>;
 export default function Home({navigation,route}:TabProps) {
 
 
-    const nav = useNavigation();
+    const nav = useNavigation<Props>();
 
     const onRecipeClicked = (item:Recipe) => {
         nav.navigate('RecipeDetails',{recipe:item})
