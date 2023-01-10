@@ -1,0 +1,67 @@
+{
+    "number": 10,
+    "offset": 0,
+    "results": [
+        {
+            "id": 1096010,
+            "image": "https://spoonacular.com/recipeImages/1096010-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Egg Salad Wrap"
+        },
+        {
+            "id": 642178,
+            "image": "https://spoonacular.com/recipeImages/642178-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Egg and Dairy Free Pancakes"
+        },
+        {
+            "id": 642246,
+            "image": "https://spoonacular.com/recipeImages/642246-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Egg-Free Chocolate Cupcakes"
+        },
+        {
+            "id": 642245,
+            "image": "https://spoonacular.com/recipeImages/642245-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Egg-Free Cranberry Thumbprints"
+        },
+        {
+            "id": 642240,
+            "image": "https://spoonacular.com/recipeImages/642240-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Egg Salad Sandwiches With Tarragon"
+        },
+        {
+            "id": 642230,
+            "image": "https://spoonacular.com/recipeImages/642230-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Egg Souffle With Bacon and Asparagus"
+        },
+        {
+            "id": 662744,
+            "image": "https://spoonacular.com/recipeImages/662744-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Taco Egg Roll"
+        },
+        {
+            "id": 645060,
+            "image": "https://spoonacular.com/recipeImages/645060-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Good-Egg Salad Sandwich"
+        },
+        {
+            "id": 641700,
+            "image": "https://spoonacular.com/recipeImages/641700-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Duck Egg Omelette With Caviar and Sour Cream"
+        },
+        {
+            "id": 633587,
+            "image": "https://spoonacular.com/recipeImages/633587-312x231.jpg",
+            "imageType": "jpg",
+            "title": "Baked Egg Linguine With Onion, Scallion, and Umame"
+        }
+    ],
+    "totalResults": 1689
+}

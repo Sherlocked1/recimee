@@ -9,6 +9,7 @@ export const MyField = (props:FieldProps) => {
             <TextInput placeholderTextColor={props.textColor} placeholder={props.placeholder} 
             style={[styles.textStyle,props.textStyle, {color:props.textColor}]}
             keyboardType = {props.keyboardType} onChangeText={props.onChangeText}
+            onSubmitEditing={props.onSubmitEditing}
             />
         </View>
     )

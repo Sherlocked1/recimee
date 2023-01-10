@@ -3,33 +3,30 @@ import styled from "styled-components/native";
 import MyImage from "../../core/components/MyImage";
 import StyledText from "../../core/components/MyText";
 import { Colors } from "../../core/constants/constants";
-import { Recipe } from "../../core/models/recipe";
+import { AbstractRecipe, Recipe } from "../../core/models/recipe";
 import RecipeView from "../components/recipe";
 import {
     SafeAreaView,
 } from 'react-native-safe-area-context';
 import Constants from "expo-constants";
+import { Ingredient, IngredientsDTO } from "../../core/models/ingredient";
 
-const data = [
-    'chicken',
-    'cheese',
-    'fish',
-    'salad',
-];
+const ingredients: IngredientsDTO = require('../../core/data/popular_ingredients.json');
+const data: Ingredient[] = ingredients.data;
 
-const recipes: Recipe[] = [
-    { id: 1, name: 'Chicken meat', image: '', rating: 4, time: 30 },
-    { id: 2, name: 'Chicken meat', image: '', rating: 4, time: 30 },
-    { id: 3, name: 'Chicken meat', image: '', rating: 2, time: 30 },
-    { id: 4, name: 'Chicken meat', image: '', rating: 4, time: 90 },
+const recipes: AbstractRecipe[] = [
+    { id: 1, title: 'Chicken meat', image: '', imageType: 'jpg' },
+    { id: 2, title: 'Chicken meat', image: '', imageType: 'jpg' },
+    { id: 3, title: 'Chicken meat', image: '', imageType: 'jpg' },
+    { id: 4, title: 'Chicken meat', image: '', imageType: 'jpg' },
 ]
 
-const renderIngredient = (item: string) => {
+const renderIngredient = (item: Ingredient) => {
     return (
         <TouchableHighlight underlayColor={Colors.light_grey} onPress={() => { }} style={{ paddingHorizontal: 10, borderRadius: 20 }}>
             <View>
-                <MyImage style={{ marginBottom: 10 }} height={100} width={80} borderRadius={10} />
-                <StyledText style={{ textAlign: 'center' }} fontSize={14} fontWeight='Medium'>{item}</StyledText>
+                <MyImage source={{ uri: item.image_url }} style={{ marginBottom: 10 }} height={100} width={80} borderRadius={10} />
+                <StyledText style={{ textAlign: 'center' }} fontSize={14} fontWeight='Medium'>{item.name}</StyledText>
             </View>
         </TouchableHighlight>
     )
@@ -37,7 +34,7 @@ const renderIngredient = (item: string) => {
 
 export default function Home() {
     return (
-        <SafeAreaView style={{flex:1,paddingBottom:60}}>
+        <SafeAreaView style={{ flex: 1, paddingBottom: 60 }}>
             <HorizontalStack>
                 <Container>
                     <StyledText fontWeight='Bold' fontSize={20}>
@@ -53,17 +50,17 @@ export default function Home() {
                 <StyledText style={{ marginHorizontal: 10 }} fontSize={20} fontWeight='Bold'>
                     Popular Ingredients
                 </StyledText>
-                <FlatList data={data} keyExtractor={item => item}
+                <FlatList data={data} keyExtractor={item => item.id.toString()}
                     renderItem={(data) => renderIngredient(data.item)}
-                    horizontal style={{ marginVertical: 10 }} 
+                    horizontal style={{ marginVertical: 10 }}
                     showsHorizontalScrollIndicator={false}
                 />
             </View>
-            <View style={{ marginVertical: 10,flex:1}}>
-                <StyledText style={{ marginHorizontal: 10,marginBottom:10 }} fontWeight='Bold' fontSize={20}>
+            <View style={{ marginVertical: 10, flex: 1 }}>
+                <StyledText style={{ marginHorizontal: 10, marginBottom: 10 }} fontWeight='Bold' fontSize={20}>
                     Popular Recipes
                 </StyledText>
-                <FlatList style={{ alignSelf: 'center'}} data={recipes} keyExtractor={data => data.id.toString()}
+                <FlatList style={{ alignSelf: 'center' }} data={recipes} keyExtractor={data => data.id.toString()}
                     renderItem={data => <RecipeView item={data.item} />} numColumns={2}
                 />
             </View>

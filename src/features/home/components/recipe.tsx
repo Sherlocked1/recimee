@@ -2,12 +2,12 @@ import { StyleSheet, Text, useWindowDimensions, View } from "react-native"
 import MyImage from "../../core/components/MyImage"
 import StyledText from "../../core/components/MyText"
 import { Colors } from "../../core/constants/constants"
-import { Recipe } from "../../core/models/recipe"
+import { AbstractRecipe, Recipe } from "../../core/models/recipe"
 import { Rating, AirbnbRating } from 'react-native-ratings';
 
 
 type RecipeViewProps = {
-    item: Recipe
+    item: AbstractRecipe
 }
 
 
@@ -29,20 +29,20 @@ const RecipeView = (props: RecipeViewProps) => {
                     <StyledText fontSize={16} fontWeight='Medium'
                         style={{ textAlign: 'center' }}
                     >
-                        {props.item.name}
+                        {props.item.title}
                     </StyledText>
 
                     <AirbnbRating 
                     showRating={false}
                     size={20}
-                    defaultRating={props.item.rating}
+                    defaultRating={5}
                     isDisabled
                     />
 
                     <StyledText fontSize={14} fontWeight='ExtraLight'
                         style={{ textAlign: 'center' }}
                     >
-                        {getTimeStringOf(props.item.time)}
+                        {getTimeStringOf(90)}
                     </StyledText>
                 </View>
             </View>
