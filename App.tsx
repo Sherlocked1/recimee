@@ -1,5 +1,7 @@
 import Main from './src/main';
 import { useFonts } from 'expo-font';
+import { Provider } from 'react-redux';
+import RootStore from './src/features/redux/store';
 
 export default function App() {
 
@@ -11,11 +13,13 @@ export default function App() {
     'Poppins-Bold': require('./src/assets/fonts/Poppins-Bold.ttf'),
   });
 
-  if(!fontsLoaded){
+  if (!fontsLoaded) {
     return null
   }
 
   return (
-    <Main/>
+    <Provider store={RootStore}> 
+      <Main />
+    </Provider>
   );
 }

@@ -1,11 +1,18 @@
+import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { SafeAreaView, View } from "react-native"
 import styled from "styled-components/native";
+import { RootStackParams } from "../../../main";
 import MyImage from "../../core/components/MyImage";
 import StyledText from "../../core/components/MyText";
 import { Colors } from "../../core/constants/constants";
 import SettingsButton from "../components/settings_btn";
 
-const SettingsView = () => {
+type Props = NativeStackScreenProps<RootStackParams,'Tabs'>
+
+const SettingsView = ({navigation}:Props) => {
+    const signOut = () => {
+        navigation.navigate('Login');
+    }
     return (
         <SafeAreaView style={{ padding: 80 }}>
             <HeaderContainer>
@@ -20,7 +27,7 @@ const SettingsView = () => {
                 <SettingsButton title="Profile" onPress={()=>{}} />
                 <SettingsButton title="Privacy" onPress={()=>{}} />
                 <SettingsButton title="About" onPress={()=>{}} />
-                <SettingsButton title="Sign out" onPress={()=>{}} />
+                <SettingsButton title="Sign out" onPress={signOut} />
             </HeaderContainer>
         </SafeAreaView>
     )

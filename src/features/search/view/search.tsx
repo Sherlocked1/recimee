@@ -30,7 +30,8 @@ const SearchView = ({navigation,route}:TabProps) => {
                 </LoadingContainer>
             }
             <SafeAreaView style={{ flex: 1 }}>
-                <MyField icon={{ name: 'search', size: 30 }}
+                <MyField 
+                    icon={{ name: 'search', size: 30 }}
                     onChangeText={onChangeText} placeholder='Search'
                     onSubmitEditing={onSubmitQuery}
                     textColor={Colors.secondary}
