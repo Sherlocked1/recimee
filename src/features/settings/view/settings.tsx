@@ -1,26 +1,40 @@
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack/lib/typescript/src/types";
 import { SafeAreaView, View } from "react-native"
+import { useDispatch } from "react-redux";
 import styled from "styled-components/native";
 import { RootStackParams } from "../../../main";
+import { useAppSelector } from "../../../redux/hooks";
+import { UserActions } from "../../../redux/slices/user_slice";
 import MyImage from "../../core/components/MyImage";
 import StyledText from "../../core/components/MyText";
 import { Colors } from "../../core/constants/constants";
 import SettingsButton from "../components/settings_btn";
 
-type Props = NativeStackScreenProps<RootStackParams,'Tabs'>
+type Props = NativeStackNavigationProp<RootStackParams,'Tabs'>
 
-const SettingsView = ({navigation}:Props) => {
+const SettingsView = () => {
+    
+    const dispatch = useDispatch();
+
+    const user = useAppSelector((state)=>state.rootReducer.UserReducer.user)
+
+    const navigation = useNavigation<Props>();
+
     const signOut = () => {
+        
+        dispatch(UserActions.logout());
         navigation.navigate('Login');
     }
+
     return (
         <SafeAreaView style={{ padding: 80 }}>
             <HeaderContainer>
-                <MyImage height={110} width={110} isCircle style={{ backgroundColor: Colors.primary }} />
+                <MyImage height={110} width={110} isCircle borderRadius={40} style={{ backgroundColor: Colors.primary }} />
                 <View style={{ marginLeft: 10 }}>
-                    <StyledText style={{ marginVertical: 5 }} fontSize={16} fontWeight='SemiBold'>Mohammed Sayed</StyledText>
-                    <StyledText fontSize={13} fontWeight='Regular'>25 years old</StyledText>
-                    <StyledText fontSize={13} fontWeight='Regular'>+249 124 801 876</StyledText>
+                    <StyledText style={{ marginVertical: 5 }} fontSize={16} fontWeight='SemiBold'>{user?.name}</StyledText>
+                    <StyledText fontSize={13} fontWeight='Regular'>{user?.data.birthdate}</StyledText>
+                    <StyledText fontSize={13} fontWeight='Regular'>{user?.data.phonenumber}</StyledText>
                 </View>
             </HeaderContainer>
             <HeaderContainer style={{ marginTop: 0,flexDirection:'column' }}>

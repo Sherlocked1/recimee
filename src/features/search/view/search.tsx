@@ -10,6 +10,7 @@ import { AbstractRecipeView } from "../components/abstract_recipe";
 import useSearchController from "../controller/search_controller";
 
 type TabProps = BottomTabScreenProps<RootTabsParams,'Search'>;
+
 const SearchView = ({navigation,route}:TabProps) => {
 
     const { recipes, searchQuery, onChangeText, onSubmitQuery, onItemClick, isLoading,searchForQuery } = useSearchController();

@@ -1,4 +1,3 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import { createStackNavigator, StackNavigationOptions } from "@react-navigation/stack";
 import { StatusBar } from "react-native";
@@ -11,7 +10,6 @@ import TabsView from "./tabs";
 
 const Main = () => {
 
-    const Tab = createBottomTabNavigator<RootTabsParams>();
     const Stack = createStackNavigator<RootStackParams>();
 
     return (
@@ -21,7 +19,7 @@ const Main = () => {
                 <Stack.Navigator>
                     <Stack.Screen options={{ headerShown: false }} component={Login} name='Login' />
                     <Stack.Screen options={stackHeaderOptions} component={SignUp} name='Signup' />
-                    <Stack.Screen options={{ headerShown: false ,gestureEnabled:false}} component={TabsView} name='Tabs' />
+                    <Stack.Screen options={{ headerShown: false, gestureEnabled: false }} component={TabsView} name='Tabs' />
                     <Stack.Screen options={stackHeaderOptions} component={RecipeDetailView} name='RecipeDetails' />
                 </Stack.Navigator>
             </NavigationContainer>
@@ -29,10 +27,10 @@ const Main = () => {
     )
 }
 
-const stackHeaderOptions:StackNavigationOptions | ((props: {
+const stackHeaderOptions: StackNavigationOptions | ((props: {
     route: RouteProp<RootStackParams, 'Signup' | 'RecipeDetails'>;
     navigation: any;
-}) => StackNavigationOptions)   = {
+}) => StackNavigationOptions) = {
     headerStyle: { backgroundColor: Colors.light_grey, },
     headerTitleStyle: { color: Colors.secondary },
     headerBackTitleStyle: { color: Colors.secondary },
@@ -42,7 +40,8 @@ const stackHeaderOptions:StackNavigationOptions | ((props: {
 export type RootTabsParams = {
     Home: undefined,
     Search: { query?: string },
-    Settings: undefined
+    Settings: undefined,
+    Favorites: undefined
 }
 
 export type RootStackParams = {

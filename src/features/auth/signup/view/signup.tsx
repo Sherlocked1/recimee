@@ -4,35 +4,41 @@ import { RootStackParams } from "../../../../main";
 import MyButton from "../../../core/components/MyButton";
 import { MyField } from "../../../core/components/MyTextfield";
 import { Colors } from "../../../core/constants/constants";
+import useSignUpController from "../controller/signup_controller";
 
 type Props = NativeStackScreenProps<RootStackParams,'Signup'>;
 
 const SignUp = ({navigation}:Props) => {
-
-    const register = () => {
-        navigation.navigate('Tabs');
-    }
+    
+    const {
+        username,setUsername,
+        password,setPassword,
+        confirmPassword,setConfirmPassword,
+        email,setEmail,
+        phoneNumber,setPhoneNumber,
+        signUpClicked
+    } = useSignUpController();
 
     return (
         <View style={{ flex: 1 ,paddingVertical:20}}>
             <MyField placeholder="Username" icon={{ name: 'person-outline', size: 30 }} textColor={Colors.secondary}
-                onChange={() => { }} style={styles.field} returnKeyType='next' />
+                value={username} onChangeText={setUsername} style={styles.field} returnKeyType='next' />
 
             <MyField placeholder="Email" icon={{ name: 'mail-outline', size: 30 }} textColor={Colors.secondary}
-                onChange={() => { }} style={styles.field} />
+                value={email} onChangeText={setEmail} style={styles.field} />
 
             <MyField placeholder="Phone number" icon={{ name: 'phone-portrait-outline', size: 30 }} textColor={Colors.secondary}
-                onChange={() => { }} style={styles.field} />
+                value={phoneNumber} onChangeText={setPhoneNumber} style={styles.field} />
 
             <MyField placeholder="Password" icon={{ name: 'lock-closed-outline', size: 30 }} textColor={Colors.secondary}
-                onChange={() => { }} style={styles.field} />
+                value={password} onChangeText={setPassword} style={styles.field} />
 
             <MyField placeholder="Confirm password" icon={{ name: 'lock-closed-outline', size: 30 }} textColor={Colors.secondary}
-                onChange={() => { }} style={styles.field} />
+                value={confirmPassword} onChangeText={setConfirmPassword} style={styles.field} />
 
 
             <MyButton title="Register" color={Colors.accent} titleColor={Colors.light_grey}
-                onPress={register} style={styles.button}
+                onPress={signUpClicked} style={styles.button}
             />
         </View>
     )

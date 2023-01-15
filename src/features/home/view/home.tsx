@@ -15,7 +15,6 @@ const data: Ingredient[] = ingredients.data;
 const recipes:Recipe[] = require('../../core/data/recipes_detailed.json');
 import { Recipe } from "../../core/models/recipe";
 import { NavigationProp, useNavigation } from "@react-navigation/native";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
 import { RootStackParams, RootTabsParams } from "../../../main";
 import { BottomTabScreenProps } from "@react-navigation/bottom-tabs";
 

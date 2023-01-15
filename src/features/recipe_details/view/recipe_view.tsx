@@ -1,5 +1,5 @@
 import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { SafeAreaView, ScrollView, Text, TouchableOpacity, useWindowDimensions, View } from "react-native";
+import { SafeAreaView, ScrollView, TouchableOpacity, useWindowDimensions, View } from "react-native";
 import styled from "styled-components/native";
 import { RootStackParams } from "../../../main";
 import MyImage from "../../core/components/MyImage";
@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import ActiveButton from "../components/active_button";
 import RenderHTML from "react-native-render-html";
 import { getTimeStringOf } from "../../core/utils/utils";
+import { useAppDispatch, useAppSelector } from "../../../redux/hooks";
+import { RecipesActions } from "../../../redux/slices/recipes_slice";
 
 type Props = NativeStackScreenProps<RootStackParams, 'RecipeDetails'>
 const RecipeDetailView = ({ navigation, route }: Props) => {
@@ -19,15 +21,52 @@ const RecipeDetailView = ({ navigation, route }: Props) => {
     const { width, height } = useWindowDimensions();
 
     const [currentTab, setCurrentTab] = useState<'Details' | 'Recipe'>('Details');
+    const [isFavorite,setIsFavorite] = useState<boolean>(false);
+
+    const dispatch = useAppDispatch();
+    const favs = useAppSelector((state)=>state.rootReducer.RecipesReducer.favoriteRecipes);
+
 
     useEffect(() => {
         navigation.setOptions({ title: recipe.title })
     }, [])
 
+    // set right header button 
+    useEffect(() => {
+        if (favs.includes(recipe)){
+            setIsFavorite(true)
+        }
+        navigation.setOptions({
+            headerRight: () => {
+                return (
+                    <TouchableOpacity onPress={favoriteBtnClicked} activeOpacity={0.5} style={{marginHorizontal:10}}>
+                        {isFavorite ?
+                        <Ionicons name='heart' size={30} color={'red'} />
+                        :
+                        <Ionicons name='heart-outline' size={30} color={'white'} />}
+                    </TouchableOpacity>
+                )
+            }
+        })
+    }, [isFavorite])
+
+    //favorite button action listener
+    const favoriteBtnClicked = () => {
+        if (!isFavorite){
+            dispatch(RecipesActions.addToFavorites(recipe))
+        }else{
+            dispatch(RecipesActions.removeFromFavorites(recipe))
+        }
+        setIsFavorite((fav)=>!fav);
+    }
+
+    //changing current tab 
     const changeTabTo = (title: any) => {
         setCurrentTab(title);
     }
 
+    ///get styled html from html text
+    ///example: string '<h1>text</h1>'
     const getStyledHtmlText = (text: string): string => {
         const styledText = `
             <p style="color:white;">
@@ -102,8 +141,8 @@ const RecipeDetailView = ({ navigation, route }: Props) => {
                             <View>
                                 {
                                     recipe.analyzedInstructions.map(instruction =>
-                                        instruction.steps.map((step,key) =>
-                                            <View key={key} style={{ padding: 10,marginVertical:10, backgroundColor: Colors.light_grey, borderRadius: 10 }}>
+                                        instruction.steps.map((step, key) =>
+                                            <View key={key} style={{ padding: 10, marginVertical: 10, backgroundColor: Colors.light_grey, borderRadius: 10 }}>
                                                 <StyledText fontSize={14} fontWeight='Medium'>{step.step}</StyledText>
                                             </View>
                                         )

@@ -5,21 +5,21 @@ import { MyField } from "../../../core/components/MyTextfield";
 import { Colors } from "../../../core/constants/constants";
 import Ionicons from '@expo/vector-icons/Ionicons';
 import StyledText from "../../../core/components/MyText";
-import { NativeStackScreenProps } from "@react-navigation/native-stack";
-import { RootStackParams } from "../../../../main";
+import useLoginController from "../controller/login_controller";
 
-type Props = NativeStackScreenProps<RootStackParams,'Login'>
 
-const Login = ({navigation,route}:Props) => {
+
+const Login = () => {
     const { width } = useWindowDimensions();
 
-    const register = () => {
-        navigation.navigate('Signup');
-    }
-
-    const login = () => {
-        navigation.navigate('Tabs');
-    }
+    const {
+        username,
+        password,
+        setUsername,
+        setPassword,
+        onLoginClick,
+        onRegisterClick
+    } = useLoginController();
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -28,20 +28,21 @@ const Login = ({navigation,route}:Props) => {
                 <View style={{ marginTop: 20 }}>
                     <MyField placeholder="Username" onChange={() => { }} textColor={Colors.secondary}
                         icon={{ name: 'person-outline', size: 30, }} style={styles.field}
+                        onChangeText={setUsername} value={username}
                     />
                     <MyField placeholder="Password" onChange={() => { }} textColor={Colors.secondary}
                         icon={{ name: 'lock-closed-outline', size: 30, }} style={styles.field}
-                        secureTextEntry
+                        secureTextEntry onChangeText={setPassword} value={password}
                     />
                     <MyButton title="Login" color={Colors.accent} titleColor={Colors.light_grey}
-                        onPress={login}
+                        onPress={onLoginClick}
                         style={{ height: 60, width: width - 20, marginVertical: 20 }}
                     />
 
                     <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
                         <StyledText fontSize={14} fontWeight='Regular'>Don't have an account ? </StyledText>
                         <MyButton title="Register" color={'transparent'} titleColor={Colors.secondary}
-                            onPress={register}
+                            onPress={onRegisterClick}
                             style={{ height: 50,padding:0 }}
                         />
                     </View>

@@ -1,7 +1,7 @@
 import Main from './src/main';
 import { useFonts } from 'expo-font';
 import { Provider } from 'react-redux';
-import RootStore from './src/features/redux/store';
+import RootStore from './src/redux/store';
 
 export default function App() {
 

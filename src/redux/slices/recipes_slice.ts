@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { Recipe } from "../../core/models/recipe";
+import { Recipe } from "../../features/core/models/recipe";
+
 
 const initialState:RecipesState = {
     recipes:[],
@@ -16,7 +17,7 @@ const RecipesSlice = createSlice({
     initialState,
     reducers:{
         removeFromFavorites:(state,{payload}:PayloadAction<Recipe>)=> {
-            state.favoriteRecipes.push(payload);
+            state.favoriteRecipes = state.favoriteRecipes.filter((el) => el.id !== payload.id);
         },
         addToFavorites:(state,{payload}:PayloadAction<Recipe>)=> {
             state.favoriteRecipes.push(payload);

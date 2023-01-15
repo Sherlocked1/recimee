@@ -7,12 +7,8 @@ export const MyField = (props:FieldProps) => {
     return (
         <View style={[styles.container,props.style]}>
             <Ionicons name={props.icon?.name ?? 'add'} size={props.icon?.size} color={props.textColor} />
-            <TextInput placeholderTextColor={props.textColor} placeholder={props.placeholder} 
+            <TextInput placeholderTextColor={props.textColor} {...props}
             style={[styles.textStyle,props.textStyle, {color:props.textColor}]}
-            keyboardType = {props.keyboardType} onChangeText={props.onChangeText}
-            onSubmitEditing={props.onSubmitEditing}
-            returnKeyType={props.returnKeyType}
-            secureTextEntry={props.secureTextEntry}
             />
         </View>
     )

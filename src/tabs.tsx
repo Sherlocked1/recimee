@@ -1,5 +1,6 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
 import { TabOptions } from "./features/core/constants/tab_style"
+import Favorites from "./features/favorites/view/favorites"
 import Home from "./features/home/view/home"
 import SearchView from "./features/search/view/search"
 import SettingsView from "./features/settings/view/settings"
@@ -11,6 +12,7 @@ const TabsView = () => {
         <Tab.Navigator screenOptions={TabOptions}>
             <Tab.Screen options={{ headerShown: false }} component={Home} name='Home' />
             <Tab.Screen options={{ headerShown: false }} component={SearchView} name='Search' />
+            <Tab.Screen options={{ headerShown: false }} component={Favorites} name='Favorites' />
             <Tab.Screen options={{ headerShown: false }} component={SettingsView} name='Settings' />
         </Tab.Navigator>
     )

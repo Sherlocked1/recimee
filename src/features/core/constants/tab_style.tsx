@@ -24,10 +24,13 @@ export const TabOptions: ((props: {
                 case 'Settings':
                     iconName = focused ? 'settings' : 'settings-outline'
                     break;
+                case 'Favorites':
+                    iconName = focused ? 'heart' : 'heart-outline';
+                    break;
                 default:
                     iconName = 'home'
             }
-            
+
             return (
                 <View style={{ alignItems: 'center', justifyContent: 'center', top: Platform.OS == 'ios' ? 10 : 0 }}>
                     <Ionicons
